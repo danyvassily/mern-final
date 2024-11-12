@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+import userRoute from './routes/user.route.js';
 dotenv.config();
 
 mongoose 
@@ -10,6 +10,9 @@ mongoose
 .catch((error) => console.log('Connexion à MongoDB échouée !', error));
 
 const app = express();
+
+
+app.use('/api/user', userRoute);
 
 
 app.listen(3000, () => {
