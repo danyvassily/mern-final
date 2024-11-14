@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 import Home from './pages/Home';
-import About from './pages/about';
+import About from './pages/About'; // Correction de la casse
 import Projects from './pages/Projects';
 import Dashboard from './pages/Dashboard';
 import SignIn from './pages/Signin';
