@@ -6,7 +6,7 @@ import Projects from './pages/Projects';
 import Dashboard from './pages/Dashboard';
 import SignIn from './pages/Signin';
 import SignUp from './pages/Signup';
-
+import Footer from './components/footer';
 
 export default function App() {
   return ( 
@@ -21,6 +21,7 @@ export default function App() {
     <Route path="/dashboard" element={<Dashboard />} />
 
   </Routes>
+  <Footer />
   </BrowserRouter>
   );
 }
