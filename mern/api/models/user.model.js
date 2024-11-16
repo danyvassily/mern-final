@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        profilePicture:{
+            type: String,
+            default: "https://www.pngwing.com/en/search?q=profile",
+        },
     },
     { timestamps: true }
 );

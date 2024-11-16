@@ -4,24 +4,24 @@ import Home from './pages/Home';
 import About from './pages/About'; 
 import Projects from './pages/Projects';
 import Dashboard from './pages/Dashboard';
-import SignUp from './pages/Signup';
+import SignIn from './pages/Signin';
+import SignUp from './pages/SignUp';
 import Footer from './components/footer';
-import Signin from './pages/Signin';
+
 
 export default function App() {
   return ( 
-  <BrowserRouter>
-   <Header />
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/about" element={<About />} />
-    <Route path="/signin" element={<Signin />} />
-    <Route path="/signup" element={<SignUp />} />
-    <Route path="/projects" element={<Projects />} />
-    <Route path="/dashboard" element={<Dashboard />} />
-
-  </Routes>
-  <Footer />
-  </BrowserRouter>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }

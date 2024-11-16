@@ -1,25 +1,24 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux' 
-import {signInStart, signInSuccess, signInFailure} from '../redux/user/userSlice.js'
+import { useDispatch, useSelector } from "react-redux";
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice.js"
+import OAuth from "../components/OAuth.jsx";
 
 
 
-
-export default function Signin() {
+export default function SignIn() {
   const [formData, setFormData] = useState({});
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const {loading, error: errorMessage} = useSelector((state) => state.user);
   const navigate = useNavigate();
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value.trim()});
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(formData.email === '' || formData.password === '') {
-      dispatch(signInFailure('Veuillez remplir tous les champs'));
-      return;
+    if (!formData.email || !formData.password) {
+      return dispatch(signInFailure('tous les champs sont requis'));
     }
     try {
       dispatch(signInStart());
@@ -27,12 +26,12 @@ export default function Signin() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-   
       });
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));
       }
+
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate('/');
@@ -55,7 +54,7 @@ export default function Signin() {
             Link
           </Link>
           <p className="text-sm mt-5">
-            Bienvenue sur Social Hub, mon projet. Vous pouvez vous connecter avec votre compte google.
+            Bienvenue sur Social Hub, mon projet. Vous pouvez créer un compte ou vous connecter avec votre compte google.
           </p>
         </div>
         {/* right */}
@@ -63,6 +62,14 @@ export default function Signin() {
         <div className="flex-1">
    
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <div>
+            <Label value="Nom d'utilisateur" />
+            <TextInput
+            type="text"
+            placeholder="Votre nom d'utilisateur"
+            id="username" onChange={handleChange}
+            />
+            </div>
             <div>
             <Label value="Votre email" />
             <TextInput
@@ -86,8 +93,9 @@ export default function Signin() {
                 <span className="pl-3">Chargement...</span>
                 </>
               )
-              : ('Se connecter')}
+              : ('S\'inscrire')}
             </Button>
+            <OAuth />
           </form>
           <div className="div flex gap-2 text-sm mt-5">
             <span>Vous avez déjà un compte ?</span>
@@ -102,9 +110,6 @@ export default function Signin() {
           )
           
           }
-         
-    
-            
         </div>
       </div>
     </div>

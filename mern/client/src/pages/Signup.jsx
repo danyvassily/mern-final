@@ -1,6 +1,7 @@
-import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
-import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import OAuth from '../components/OAuth.jsx';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -8,15 +9,12 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value.trim()});
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    if(formData.username === '' || formData.email === '' || formData.password === '') {
-      setErrorMessage('Veuillez remplir tous les champs');
-      setLoading(false);
-      return;
+    if (!formData.username || !formData.email || !formData.password) {
+      return setErrorMessage('Please fill out all fields.');
     }
     try {
       setLoading(true);
@@ -25,7 +23,6 @@ export default function SignUp() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-   
       });
       const data = await res.json();
       if (data.success === false) {
@@ -39,9 +36,7 @@ export default function SignUp() {
       setErrorMessage(error.message);
       setLoading(false);
     }
-    setLoading(false);
   };
-
   return (
 
     <div className="min-h-screen mt-20">
@@ -96,6 +91,7 @@ export default function SignUp() {
               )
               : ('S\'inscrire')}
             </Button>
+            <OAuth />
           </form>
           <div className="div flex gap-2 text-sm mt-5">
             <span>Vous avez déjà un compte ?</span>
@@ -110,9 +106,7 @@ export default function SignUp() {
           )
           
           }
-         
-    
-            
+          
         </div>
       </div>
     </div>
