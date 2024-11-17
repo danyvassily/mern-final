@@ -11,6 +11,8 @@ export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
 
+  console.log('currentUser:', currentUser);
+
   return (
     <Navbar className='border-b-2'>
       <Link to='/' className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
@@ -43,8 +45,8 @@ export default function Header() {
             inline
             label={
               <Avatar 
-                alt='user'
-                img={currentUser.profilePicture || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} 
+                alt={currentUser.username}
+                img={currentUser.profilePicture || currentUser.googlePhotoUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} 
                 rounded
               />
             }
