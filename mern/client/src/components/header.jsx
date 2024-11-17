@@ -33,10 +33,9 @@ export default function Header() {
       <div className='flex gap-2 md:order-2'>
         <Button
           className='w-12 h-10 hidden sm:inline'
-          color='gray'
-          onClick={() => dispatch(toggleTheme())}
+          color='gray' pill onClick={() => dispatch(toggleTheme())}
         >
-          {theme === 'light' ? <FaMoon /> : <FaSun />}
+          {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
         {currentUser ? (
           <Dropdown
