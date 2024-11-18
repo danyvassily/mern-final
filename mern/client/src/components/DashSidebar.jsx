@@ -14,7 +14,7 @@ export default function DashSidebar() {
     if (tabFromUrl) setTab(tabFromUrl)
   }, [location.search])
   return (
-    <Sidebar className='w-full md:w-56'>
+    <Sidebar>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Link to='/dashboard?tab=profile'>
@@ -23,6 +23,7 @@ export default function DashSidebar() {
               icon={HiUser} 
               label={'User'} 
               labelColor='dark' 
+              as='div'
             >
               Profile
             </Sidebar.Item>
@@ -32,6 +33,7 @@ export default function DashSidebar() {
               active={tab === 'sign-out'}
               icon={HiArrowSmRight}
               className='cursor-pointer'
+              as='div'
             >
               Sign Out
             </Sidebar.Item>
