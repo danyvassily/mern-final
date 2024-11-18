@@ -56,6 +56,7 @@ export const signin = async (req, res, next) => {
 
 //google
 export const google = async (req, res, next) => {
+  console.log('Données reçues:', req.body);
   const { name, email, googlePhotoUrl } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -81,6 +82,7 @@ export const google = async (req, res, next) => {
         .json(rest);
     }
   } catch (error) {
+    console.error('Erreur serveur:', error);
     next(error);
   }
 };

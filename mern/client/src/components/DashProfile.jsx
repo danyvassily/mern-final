@@ -1,15 +1,38 @@
 import { TextInput, Button } from 'flowbite-react'
 import {useSelector} from 'react-redux'
+import { useState, useRef, useEffect } from 'react'
+
+
+
 
 export default function DashProfile() {
   const {currentUser} = useSelector(state => state.user)
+  const [imageFile, setImageFile] = useState(null)
+  const [imageFileUrl, setImageFileUrl] = useState(null)
+  const filePickerRef = useRef(null)
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+    if(file){
+      setImageFile(file);
+      setImageFileUrl(URL.createObjectURL(file));
+    }
+  }
+  useEffect(() => {
+    if (imageFile) {
+      uploadImageImage();
+    }
+  }, [imageFile])
+  const uploadImageImage = async () => {
+    console.log('uploading image...');
+  };
   return (
     <div className='max-w-lg mx-auto p-3 w-full' >
       <h1 className='text-2xl font-bold text-center my-4' >Profile</h1>
       <form className='flex flex-col gap-4' >
-        <div className="w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full" >
+        <input type='file' accept='image/*' onChange={handleImageChange} ref={filePickerRef} className='hidden' />
+        <div className="w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full" onClick={() => filePickerRef.current.click()} >
 
-          <img src={currentUser.profilePicture} alt="user" className="rounded-full w-full h-full border-8 border-[lightgray]" />
+          <img src={ imageFileUrl || currentUser.profilePicture} alt="user" className="rounded-full w-full h-full border-8 border-[lightgray]" />
           <span>{currentUser.name}</span>
         </div>
         <TextInput type='text' id='username' placeholder='username' defaultValue={currentUser.username} />

@@ -15,23 +15,28 @@ export default function OAuth() {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: 'select_account' });
       const resultsFromGoogle = await signInWithPopup(auth, provider)
+      console.log('Résultats Google:', resultsFromGoogle);
+
       const res = await fetch('/api/auth/google', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',},
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           name: resultsFromGoogle.user.displayName,
           email: resultsFromGoogle.user.email,
           googlePhotoUrl: resultsFromGoogle.user.photoURL,
         }),
-      })
+      });
+      console.log('Réponse API:', await res.clone().json());
+      
       const data = await res.json();
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate('/');
       }
     } catch (error) {
-      console.error("Erreur Firebase:", error.code, error.message);
+      console.error("Erreur complète:", error);
     }
   }
   
